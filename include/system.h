@@ -25,11 +25,12 @@ extern size_t strlen(const char *str);
 extern unsigned char inportb (unsigned short _port);
 extern void outportb (unsigned short _port, unsigned char _data);
 
-/* CONSOLE.C */
+/* SCRN.C */
 extern void init_video(void);
 extern void puts(unsigned char *text);
 extern void putch(unsigned char c);
 extern void cls();
+extern void printf(const char *format, ...);
 
 /* GDT.C */
 extern void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);

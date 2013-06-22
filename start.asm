@@ -44,6 +44,8 @@ mboot:
 ; before the 'jmp $'.
 stublet:
     extern main
+    push ebx
+    push eax
     call main
     jmp $
 
