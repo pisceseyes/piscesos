@@ -518,6 +518,40 @@ irq_common_stub:
     add esp, 8
     iret
 
+;Some Utility Functions for Paging
+;Since we will need to be able to read and write to the CR0 and CR3 registers, lets make some
+;utility functions to simplify the process. The following NASM snippit(depending on your C
+;compiler, you may have to remove the leading underscore for these functions to work) will
+;work fine for what we need to do:
+[global _read_cr0]
+_read_cr0:
+	mov eax, cr0
+	retn
+
+[global _write_cr0]
+_write_cr0:
+	push ebp
+	mov ebp, esp
+	mov eax, [ebp+8]
+	mov cr0,  eax
+	pop ebp
+	retn
+
+[global _read_cr3]
+_read_cr3:
+	mov eax, cr3
+	retn
+
+[global _write_cr3]
+_write_cr3:
+	push ebp
+	mov ebp, esp
+	mov eax, [ebp+8]
+	mov cr3, eax
+	pop ebp
+	retn
+
+
 ; Here is the definition of our BSS section. Right now, we'll use
 ; it just to store the stack. Remember that a stack actually grows
 ; downwards, so we declare the size of the data before declaring

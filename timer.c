@@ -24,7 +24,7 @@ void timer_handler(struct regs *r)
     if (timer_ticks % 18 == 0)
     {
         //puts("One second has passed\n");
-        putch('.');
+        //putch('.');
     }
 }
 

@@ -8,6 +8,11 @@
 
 typedef int size_t;
 
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef unsigned char uchar;
+
 /* This defines what the stack looks like after an ISR was running */
 struct regs
 {
@@ -54,5 +59,9 @@ extern void timer_install();
 
 /* KEYBOARD.C */
 extern void keyboard_install();
+
+/* MYPAGING.C */
+extern u32 nextfreeaddr;
+extern void init_paging();
 
 #endif

@@ -50,6 +50,9 @@ void outportb (unsigned short _port, unsigned char _data)
 /* Check if the bit BIT in FLAGS is set. */
 #define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
 
+extern void start();
+extern void end();
+
 void main(unsigned long magic, unsigned long addr)
 {
     multiboot_info_t *mbi;
@@ -76,21 +79,25 @@ void main(unsigned long magic, unsigned long addr)
         return;
     }
 
-    puts("PiscesOS says: Hello World! 12345!\n");
-    printf ("Magic number: 0x%x\n", (unsigned) magic);
+    puts("PiscesOS says: Hello World! Hahaha!\n");
+    /* printf ("Magic number: 0x%x\n", (unsigned) magic); */
 
     /* Set MBI to the address of the Multiboot information structure. */
     mbi = (multiboot_info_t *) addr;
 
     /* Print out the flags. */
-    printf ("flags = 0x%x\n", (unsigned) mbi->flags);
+    /* printf ("flags = 0x%x\n", (unsigned) mbi->flags); */
 
     /* Are mem_* valid? */
-    if (CHECK_FLAG (mbi->flags, 0))
+    /* if (CHECK_FLAG (mbi->flags, 0))
         printf("mem_lower = %uKB, mem_upper = %uKB\n",
-            (unsigned) mbi->mem_lower, (unsigned) mbi->mem_upper);
+            (unsigned) mbi->mem_lower, (unsigned) mbi->mem_upper); */
 
-    printf("mem 0x%x - 0x%x\n", 0x100000, (unsigned) mbi->mem_upper * 1024);
+    /* printf("mem 0x%x - 0x%x\n", 0x100000, (unsigned) mbi->mem_upper * 1024); */
+    printf("start: 0x%x, end: 0x%x, upperlim: 0x%x\n", &start, &end, (unsigned) mbi->mem_upper * 1024);
+
+    /* Start of usable free memory is at &end of kernel till upper memory*/
+    init_paging(&end, (unsigned) mbi->mem_upper * 1024);
 
 //    i = 10 / 0;
 //    putch(i);

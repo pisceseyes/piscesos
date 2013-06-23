@@ -1,9 +1,9 @@
 CC=gcc
 LD=ld
 CFLAGS=-I./include -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -m32 -w -g
-LDFLAGS=-T link.ld
-SOURCES=main.c scrn.c gdt.c idt.c isrs.c irq.c timer.c kb.c
-OBJECTS=$(SOURCES:.c=.o) start.o
+LDFLAGS=-T link.ld -melf_i386
+SOURCES=main.c scrn.c gdt.c idt.c isrs.c irq.c timer.c kb.c mypaging.c
+OBJECTS=start.o $(SOURCES:.c=.o)
 EXECUTABLE=kernel.bin
 
 all: $(EXECUTABLE)
